@@ -9,4 +9,11 @@ services:
     cap_add:
       - SYS_PTRACE
     shm_size: 2GB
+    volumes:
+      - type: volume
+        source: python-packages
+        target: $PWD/.venv
     command: sleep infinity
+
+volumes:
+  python-packages:
