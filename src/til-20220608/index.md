@@ -100,3 +100,5 @@ services:
         source: $PWD
         target: $PWD
 ```
+
+python 仮想環境を named volume で用意しています。WSL で実行する場合に、named volume をマウントした位置のホスト側に root 権限で空のフォルダが作成されます。そのため、先に `mkdir .venv` などでフォルダを作成しておくことで root 権限でのフォルダ生成を回避することができます。
