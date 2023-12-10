@@ -1,20 +1,20 @@
 {
   "recommendations": [
-    // === docker ===
+    // Editor
+    "EditorConfig.EditorConfig",
+    // Docker
     "ms-azuretools.vscode-docker",
-    // === git ===
-    "donjayamanne.githistory",
-    "eamodio.gitlens",
-    // === markdown ===
-    "bierner.markdown-preview-github-styles",
+    // Markdown
     "DavidAnson.vscode-markdownlint",
-    "lpubsppop01.vscode-auto-timestamp",  // frontmatterの時刻の自動更新
+    "lpubsppop01.vscode-auto-timestamp", // frontmatterの時刻の自動更新
     "esbenp.prettier-vscode",
-    "shd101wyy.markdown-preview-enhanced",
-    // === python ===
+    // Python
+    "ms-python.black-formatter",
+    "ms-python.flake8",
+    "ms-python.isort",
+    "ms-python.mypy-type-checker",
     "ms-python.python",
-    "njpwerner.autodocstring",
-    // === vscode ===
-    "alefragnani.bookmarks",
+    "ms-python.vscode-pylance",
+    "njpwerner.autodocstring"
   ]
 }
