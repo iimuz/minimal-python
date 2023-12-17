@@ -1,4 +1,10 @@
-# minimal python
+---
+title: Minimal Python Settings
+date: 2022-06-08
+lastmod: 2023-12-17
+---
+
+## minimal python
 
 python のコードを書くときに利用する最小限の設定です。
 ただし、ここでの対象は実行用スクリプトを開発することを想定しています。
