@@ -1,8 +1,5 @@
 {
   "editor.detectIndentation": true,
-  "workbench.colorCustomizations": {
-    "titleBar.border": "#ffffff"
-  },
   // Extension: auto time stamp
   "lpubsppop01.autoTimeStamp.filenamePattern": ".md",
   "lpubsppop01.autoTimeStamp.lineLimit": 5,
