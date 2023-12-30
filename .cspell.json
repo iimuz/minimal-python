@@ -1,0 +1,25 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "cmds",
+    "dotenv",
+    "dprint",
+    "mypy",
+    "pytest",
+    "venv",
+    "VENV"
+  ],
+  "dictionaries": [],
+  "ignorePaths": [
+    "**/.git/**",
+    "**/.mypy_cache/**",
+    "**/.ruff_cache/**",
+    "**/.venv/**",
+    "**/*.egg-info/**",
+    "**/node_modules/**",
+    "**/package-lock.json",
+    "**/requirements.txt",
+    "**/requirements-dev.txt"
+  ]
+}
