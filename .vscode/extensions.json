@@ -4,17 +4,18 @@
     "EditorConfig.EditorConfig",
     // Docker
     "ms-azuretools.vscode-docker",
+    // Formatter
+    "dprint.dprint", // json, markdown, toml
     // Markdown
     "DavidAnson.vscode-markdownlint",
     "lpubsppop01.vscode-auto-timestamp", // frontmatterの時刻の自動更新
-    "esbenp.prettier-vscode",
     // Python
-    "ms-python.black-formatter",
-    "ms-python.flake8",
-    "ms-python.isort",
+    "charliermarsh.ruff",
     "ms-python.mypy-type-checker",
     "ms-python.python",
     "ms-python.vscode-pylance",
-    "njpwerner.autodocstring"
+    "njpwerner.autodocstring",
+    // TOML
+    "be5invis.toml" // syntax highlight
   ]
 }
