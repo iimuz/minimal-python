@@ -1,32 +1,42 @@
 ---
 title: Minimal Python Settings
 date: 2022-06-08
-lastmod: 2023-12-17
+lastmod: 2023-12-31
 ---
 
 ## minimal python
 
-python のコードを書くときに利用する最小限の設定です。
+pythonのコードを書くときに利用する最小限の設定です。
 ただし、ここでの対象は実行用スクリプトを開発することを想定しています。
 そのため、下記は対象外です。
 
-- pip インストール可能なライブラリ開発
-- pip インストール可能なツール開発
+- pipインストール可能なライブラリ開発
+- pipインストール可能なツール開発
 
 ## ファイル構成
 
 - フォルダ
-  - `.devcontainer`: VSCode Remote Containers の設定を記述します。
-  - `.vscode`: VSCode の基本設定を記述します。
+  - `.devcontainer`: VSCode Remote Containersの設定を記述します。
+  - `.github`: GitHubのworkflow設定を記述します。
+  - `.vscode`: VSCodeの基本設定を記述します。
   - `src`: 開発するスクリプトを格納します。
 - ファイル
-  - `.gitignore`: [python 用の gitignore](https://github.com/github/gitignore/blob/main/Python.gitignore) です。
-  - `.sample.env`: 環境変数のサンプルを記載します。利用時は `.env` に変更して利用します。
-  - `LICENSE`: ライセンスを記載します。 MIT ライセンスを設定しています。
+  - `.cspell.json`: [CSpell](https://cspell.org/)の設定を記述します。
+  - `.editorconfig`: Editorの共通設定を記述します。
+  - `.gitignore`: 以下のignore設定を結合しています。
+    - [python gitignore](https://github.com/github/gitignore/blob/main/Python.gitignore)
+    - [node gitignore](https://github.com/github/gitignore/blob/main/Node.gitignore)
+  - `.prettierignore`: [prettier](https://prettier.io/)の設定を記述します。
+  - `.sample.env`: 環境変数のサンプルを記載します。利用時は`.env`に変更して利用します。
+  - `docker-compose.yml`, `Dockerfile`: docker環境の設定を記述します。
+  - `dprint.json`: dprintの設定を記述します。
+  - `LICENSE`: ライセンスを記載します。MITライセンスを設定しています。
+  - `package.json`: nodeのパッケージ情報を記載します。
   - `pyproject.toml`/`setup.py`/`setup.cfg`: python バージョンなどを明記します。
   - `README.md`: 本ドキュメントです。
+  - `Taskfile.yml`: [task](https://taskfile.dev/)コマンドの設定を記述します。
 
-## 実行方法
+## dockerを用いた実行方法
 
 コマンドのみを実行できれば良い場合は下記のように実行します。
 
@@ -40,44 +50,49 @@ vscode と同様の開発環境で起動する場合は下記のように実行�
 docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml -f .devcontainer/docker-compose.local.yml run --rm -it app
 ```
 
-## 仮想環境の構築
+## ローカル環境の構築
 
-仮想環境の構築には python 標準で付属している venv の利用を想定しています。
-スクリプトで必要なパッケージは `requirements.txt` に記載します。
-実際にインストール後は、 `requirements-freeze.txt` としてバージョンを固定します。
+事前に下記が利用できるように環境を設定してください。
+
+- [node.js](https://nodejs.org/en): 開発環境のlinterに利用します。
+- [python](https://nodejs.org/en)
+- [task](https://taskfile.dev/): タスクランナーとして利用します。
+
+仮想環境などの構築は下記のコマンドで実行します。
 
 ```sh
-# create virtual env
-python -m venv .venv
+# 実行だけできればよい場合
+task init
+# 開発環境もインストールする場合
+task init-dev
+```
 
-# activate virtual env(linux)
-source .venv/bin/activate
-# or (windows)
-source .venv/Scripts/activate.ps1
+## Taskfile
 
-# install packages
-pip install -e .[dev,test]
+実行可能なタスク一覧は下記のコマンドで確認してください。
 
-# freeze version
-pip freeze > constraint.txt
-pip install -e .[dev,test] -c constraint.txt
+```sh
+task -l
 ```
 
 ## code style
 
 コードの整形などはは下記を利用しています。
 
-- [black](https://github.com/psf/black): python code formmater.
-- [flake8](https://github.com/PyCQA/flake8): style checker.
-- [isort](https://github.com/PyCQA/isort): sort imports.
-- [mypy](https://github.com/python/mypy): static typing.
-- docstirng: [numpy 形式](https://numpydoc.readthedocs.io/en/latest/format.html)を想定しています。
-  - vscode の場合は [autodocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring) 拡張機能によりひな型を自動生成できます。
+- json, markdown, toml
+  - [dprint](https://github.com/dprint/dprint): formatter
+- python
+  - [ruff](https://github.com/astral-sh/ruff): python linter and formatter.
+  - [mypy](https://github.com/python/mypy): static typing.
+  - docstring: [numpy 形式](https://numpydoc.readthedocs.io/en/latest/format.html)を想定しています。
+    - vscodeの場合は[autodocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring)拡張機能によりひな型を自動生成できます。
+- yml
+  - [prettier](https://prettier.io/): formatter
 
 ## VSCode remote containers
 
 VSCode のリモートコンテナを利用した環境構築を利用できます。
-下記拡張機能をインストールし、 `Dev Contianers: Reopen in Container` コマンドを実行することで Dockerfile の環境で VSCode を利用することができます。
+下記拡張機能をインストールし、 `Dev Containers: Reopen in Container` コマンドを実行することで Dockerfile の環境で VSCode を利用することができます。
 
 - [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
