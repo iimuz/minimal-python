@@ -2,13 +2,25 @@
   "version": "0.2",
   "language": "en",
   "words": [
+    "autodocstring",
     "cmds",
+    "devcontainer",
+    "docstring",
     "dotenv",
     "dprint",
+    "iimuz",
+    "lastmod",
     "mypy",
+    "noninteractive",
+    "numpy",
+    "pyproject",
     "pytest",
+    "setuptools",
+    "Taskfile",
+    "unfixable",
+    "VENV",
     "venv",
-    "VENV"
+    "worktree"
   ],
   "dictionaries": [],
   "ignorePaths": [
