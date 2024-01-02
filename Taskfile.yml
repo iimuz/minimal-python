@@ -47,7 +47,7 @@ tasks:
       - "{{.PYTHON}} -m ruff check ."
       - dprint check
       - npx prettier --check "**/*.{yml,yaml}"
-      - npx cspell lint .
+      - npx cspell lint . --no-progress
   format:
     desc: Format files.
     cmds:
