@@ -6,6 +6,7 @@
     "ms-azuretools.vscode-docker",
     // Linter, Formatter
     "dprint.dprint", // json, markdown, toml
+    "esbenp.prettier-vscode", // yml
     "streetsidesoftware.code-spell-checker", // spell checker
     // Markdown
     "DavidAnson.vscode-markdownlint",
