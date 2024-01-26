@@ -4,7 +4,7 @@ description = "minimal python project."
 license = { file = "LICENSE" }
 name = "minimal-python"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 urls = { repository = "https://github.com/iimuz/minimal-python" }
 version = "1.0.0"
 
