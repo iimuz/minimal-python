@@ -1,17 +1,7 @@
 version: "3"
 
 vars:
-  # 仮想環境を作成するときに利用するpython
-  ORIGINAL_PYTHON: python310
-  # 仮想環境内のpython
-  PYTHON:
-    sh: |
-      if [[ {{OS}} == "windows" ]]; then
-        echo '.venv\\Scripts\\python.exe'
-      else  # darwin, linux
-        echo '.venv/bin/python'
-      fi
-  # python仮想環境を作成するディレクトリ
+  PYTHON: python
   VENV_DIR: .venv
 dotenv: [".env"]
 
@@ -22,17 +12,33 @@ tasks:
     deps:
       - clean
     cmds:
-      - "{{.ORIGINAL_PYTHON}} -m venv {{.VENV_DIR}}"
-      - "{{.PYTHON}} -m pip install -r requirements.txt"
+      - "{{.PYTHON}} -m venv {{.VENV_DIR}}"
+      - "{{.PYTHON_VENV}} -m pip install -r requirements.txt"
       - npm install
+    vars:
+      PYTHON_VENV:
+        sh: |
+          if [[ {{OS}} == "windows" ]]; then
+            echo '{{.VENV_DIR}\\Scripts\\python.exe'
+          else  # darwin, linux
+            echo '{{.VENV_DIR}}/bin/python'
+          fi
   init-dev:
     desc: Initialize project for developer.
     deps:
       - clean
     cmds:
-      - "{{.ORIGINAL_PYTHON}} -m venv {{.VENV_DIR}}"
-      - "{{.PYTHON}} -m pip install -r requirements-dev.txt"
+      - "{{.PYTHON}} -m venv {{.VENV_DIR}}"
+      - "{{.PYTHON_VENV}} -m pip install -r requirements-dev.txt"
       - npm install -D
+    vars:
+      PYTHON_VENV:
+        sh: |
+          if [[ {{OS}} == "windows" ]]; then
+            echo '{{.VENV_DIR}}\\Scripts\\python.exe'
+          else  # darwin, linux
+            echo '{{.VENV_DIR}}/bin/python'
+          fi
   clean:
     # rmは環境によって利用できないのでgit cleanを利用する。
     desc: Clean files.
@@ -58,7 +64,6 @@ tasks:
   # requirements.txtの更新用タスク
   # 実行後に下記の修正を手動で実施する必要がある。
   # - requirements.txtから"-e"で始まる行を削除する。
-  # - requirements.txtの"torch+cuXXX"を"torch"に変更する。
   update-requirements:
     desc: Update requirements.txt and requirements-dev.txt.
     deps:
@@ -67,13 +72,13 @@ tasks:
   update-requirements-prd:
     desc: Update requirements.txt.
     cmds:
-      - "{{.ORIGINAL_PYTHON}} -m venv {{.VENV_DIR}}"
+      - "{{.PYTHON}} -m venv {{.VENV_DIR}}"
       - defer: git clean -fdx {{.VENV_DIR}}
-      - '{{.PYTHON}} -m pip install -e "."'
-      - "{{.PYTHON}} -m pip freeze > requirements.txt"
+      - '{{.PYTHON_VENV}} -m pip install -e "."'
+      - "{{.PYTHON_VENV}} -m pip freeze > requirements.txt"
     vars:
       VENV_DIR: .venv-temp-prd
-      PYTHON:
+      PYTHON_VENV:
         sh: |
           if [[ {{OS}} == "windows" ]]; then
             echo '{{.VENV_DIR}}\\Scripts\\python.exe'
@@ -83,13 +88,13 @@ tasks:
   update-requirements-dev:
     desc: Update requirements-dev.txt.
     cmds:
-      - "{{.ORIGINAL_PYTHON}} -m venv {{.VENV_DIR}}"
+      - "{{.PYTHON}} -m venv {{.VENV_DIR}}"
       - defer: git clean -fdx {{.VENV_DIR}}
-      - '{{.PYTHON}} -m pip install -e ".[dev,test]"'
-      - "{{.PYTHON}} -m pip freeze > requirements-dev.txt"
+      - '{{.PYTHON_VENV}} -m pip install -e ".[dev,test]"'
+      - "{{.PYTHON_VENV}} -m pip freeze > requirements-dev.txt"
     vars:
       VENV_DIR: .venv-temp-dev
-      PYTHON:
+      PYTHON_VENV:
         sh: |
           if [[ {{OS}} == "windows" ]]; then
             echo '{{.VENV_DIR}}\\Scripts\\python.exe'
