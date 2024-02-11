@@ -13,6 +13,7 @@
     "lpubsppop01.vscode-auto-timestamp", // frontmatterの時刻の自動更新
     // Python
     "charliermarsh.ruff",
+    "ms-python.debugpy", // python debugger
     "ms-python.mypy-type-checker",
     "ms-python.python",
     "ms-python.vscode-pylance",
